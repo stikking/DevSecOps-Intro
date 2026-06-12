@@ -7,21 +7,13 @@
 ### Risk count by severity
 
 | Severity | Count |
-
 |----------|------:|
-
 | Critical | 0 |
-
 | High | 0 |
-
 | Elevated | 4 |
-
 | Medium | 14 |
-
 | Low | 5 |
-
-| \*\*Total\*\* | 23 |
-
+| **Total** | 23 |
 
 
 ### Top 5 risks (paste from PowerShell output)
@@ -45,19 +37,12 @@
 ### Risk count comparison
 
 | Severity | Baseline | Secure | Δ |
-
 |----------|---------:|-------:|--:|
-
 | Critical | 7 | 7 | 0 |
-
 | Elevated | 4 | 3 | -1 |
-
 | Low | 5 | 5 | 0 |
-
 | Medium | 14 | 13 | -1 |
-
-| \*\*Total\*\* | \*\*30\*\* | \*\*28\*\* | \*\*-2\*\* |
-
+| **Total** | **30** | **28** | **-2** |
 
 
 ### Which rules are GONE in the secure variant?
@@ -89,19 +74,12 @@ The total did not drop more than 50% (it decreased by only 2 risks). This indica
 ### Risk count
 
 | Severity | Count |
-
 |----------|------:|
-
 | Critical | 7 |
-
 | Elevated | 6 |
-
 | Low | 22 |
-
 | Medium | 13 |
-
-| \*\*Total\*\* | \*\*48\*\* |
-
+| **Total** | **48** |
 
 
 ### Three auth-specific risks (NOT in the baseline model's top 5)
