@@ -1,0 +1,209 @@
+threagile_version: 1.0.0
+title: Juice Shop Auth Flow Model
+date: 2025-09-18
+author:
+  name: Student
+business_criticality: important
+
+technical_assets:
+  Browser:
+    id: browser
+    title: Browser
+    type: external-entity
+    usage: business
+    size: system
+    technology: browser
+    internet: true
+    machine: virtual
+    encryption: none
+    owner: External User
+    confidentiality: public
+    integrity: operational
+    availability: operational
+    communication_links:
+      To Auth API:
+        target: auth-api
+        description: "Login + register"
+        protocol: https
+        authentication: none
+        authorization: none
+        vpn: false
+        ip_filtered: false
+        readonly: false
+        usage: business
+        data_assets_sent:
+          - credentials
+      To Admin Endpoint:
+        target: admin-api
+        description: "Access admin panel with JWT"
+        protocol: https
+        authentication: none
+        authorization: none
+        vpn: false
+        ip_filtered: false
+        readonly: false
+        usage: business
+        data_assets_sent:
+          - jwt-token
+          - admin-requests
+  Auth API:
+    id: auth-api
+    title: Juice Shop Auth API endpoint
+    type: process
+    usage: business
+    size: application
+    technology: web-server
+    internet: false
+    machine: container
+    encryption: none
+    owner: Lab Owner
+    confidentiality: internal
+    integrity: important
+    availability: important
+    communication_links:
+      To Token Signer:
+        target: token-signer
+        description: "Request a JWT"
+        protocol: https
+        authentication: none
+        authorization: none
+        vpn: false
+        ip_filtered: false
+        readonly: false
+        usage: business
+        data_assets_sent:
+          - credentials
+        data_assets_received:
+          - jwt-token
+          - jwt-signing-key
+      To User DB:
+        target: user-db
+        description: "Fetch user credentials"
+        protocol: https
+        authentication: none
+        authorization: none
+        vpn: false
+        ip_filtered: false
+        readonly: false
+        usage: business
+        data_assets_received:
+          - credentials
+  Token Signer:
+    id: token-signer
+    title: Token signing/verification component
+    type: process
+    usage: business
+    size: component
+    technology: web-server
+    internet: false
+    machine: container
+    encryption: none
+    owner: Lab Owner
+    confidentiality: internal
+    integrity: important
+    availability: important
+    communication_links: {}
+  User DB:
+    id: user-db
+    title: User DB credential store
+    type: datastore
+    usage: business
+    size: component
+    technology: file-server
+    internet: false
+    machine: container
+    encryption: data-with-symmetric-shared-key
+    owner: Lab Owner
+    confidentiality: confidential
+    integrity: critical
+    availability: critical
+    data_assets_stored:
+      - credentials
+    communication_links: {}
+  Admin Endpoint:
+    id: admin-api
+    title: Admin endpoint
+    type: process
+    usage: business
+    size: application
+    technology: web-server
+    internet: false
+    machine: container
+    encryption: none
+    owner: Lab Owner
+    confidentiality: internal
+    integrity: critical
+    availability: important
+    communication_links: {}
+
+trust_boundaries:
+  Internet:
+    id: internet
+    description: "Untrusted public network"
+    type: network-dedicated-hoster
+    technical_assets_inside:
+      - browser
+    trust_boundaries_nested:
+      - container
+  Container:
+    id: container
+    description: "Trusted container network"
+    type: network-dedicated-hoster
+    technical_assets_inside:
+      - auth-api
+      - token-signer
+      - user-db
+      - admin-api
+    trust_boundaries_nested: []
+
+data_assets:
+  Credentials:
+    id: credentials
+    description: "Username + password"
+    usage: business
+    origin: user-supplied
+    owner: Lab Owner
+    quantity: many
+    confidentiality: confidential
+    integrity: critical
+    availability: critical
+  JWT Token:
+    id: jwt-token
+    description: "Issued, returned, used"
+    usage: business
+    origin: application
+    owner: Lab Owner
+    quantity: many
+    confidentiality: internal
+    integrity: critical
+    availability: important
+  User Session State:
+    id: user-session
+    description: "Tracks active sessions"
+    usage: business
+    origin: application
+    owner: Lab Owner
+    quantity: many
+    confidentiality: internal
+    integrity: important
+    availability: important
+  Admin Operation Requests:
+    id: admin-requests
+    description: "The JWT-must-have-admin-role flow"
+    usage: business
+    origin: application
+    owner: Lab Owner
+    quantity: few
+    confidentiality: confidential
+    integrity: critical
+    availability: important
+  JWT Signing Key:
+    id: jwt-signing-key
+    description: "Secret key used to sign JWTs"
+    usage: devops
+    origin: application
+    owner: Lab Owner
+    quantity: few
+    confidentiality: confidential
+    integrity: critical
+    availability: critical
