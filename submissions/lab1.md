@@ -133,8 +133,8 @@ Starring repositories matters in open source because it acts as a public bookmar
 
 ## Bonus: CI Smoke Test
 - **Workflow file:** `.github/workflows/lab1-smoke.yml`
-Trigger: pull_request on main
-Run URL (must be green): https://github.com/<ТВОЙ-НИК>/DevSecOps-Intro/actions/runs/1234567890
-Workflow run duration: 42s
-Curl response excerpt:
-Juice Shop is up!HTTP Status: 200
+- **Trigger:** `pull_request on main`
+- **Run URL (must be green):** `https://github.com/stikking/DevSecOps-Intro/actions/runs/27435661311`
+- **Workflow run duration:** `27s`
+- **Curl response excerpt:**
+`Juice Shop is up! HTTP Status: 200`
