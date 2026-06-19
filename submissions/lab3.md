@@ -1,36 +1,60 @@
-﻿\# Lab 3 — Submission
-
-\## Task 1: SSH Commit Signing
-
-\### Local configuration
-
-\- `git config --global gpg.format → ssh` 
-
-\- `git config --global user.signingkey → C:/DevSecOps/git\_key.txt.pub`
-
-\- `git config --global commit.gpgsign → true`
-
-\### Local verification
-
+﻿# Lab 3 — Submission
+## Task 1: SSH Commit Signing
+### Local configuration
+- `git config --global gpg.format → ssh` 
+- `git config --global user.signingkey → C:/DevSecOps/git_key.txt.pub`
+- `git config --global commit.gpgsign → true`
+### Local verification
 Output of `git log --show-signature -1`: (commit ddb8972eba552c8d164e854d136b63a771650b13 (HEAD -> feature/lab3, origin/feature/lab3
-
 Good "git" signature for a.salakhutdinov@innopolis.university with ED25519 key SHA256:iKF6rdu2MNKQc2SCSOA+FNe3wqEyv6rM71vxyvdL+ck
-
 Author: Stikking <stikking11@gmail.com>
-
 Date:   Fri Jun 19 18:07:56 2026 +0300
-
 test: first signed commit)
 
-
-
-\### GitHub verification
-
+### GitHub verification
 Direct link to your most recent commit on GitHub: (https://github.com/stikking/DevSecOps-Intro/commit/ddb8972eba552c8d164e854d136b63a771650b13)
-
-\- Screenshot of the Verified badge: ("DevSecOps-Intro\\submissions\\verification.png")
-
-\### One-paragraph reflection (2-3 sentences)
-
+- Screenshot of the Verified badge: ("DevSecOps-Intro\submissions\verification.png")
+### One-paragraph reflection (2-3 sentences)
 In a STRIDE-R scenario, an attacker could forge a commit by changing local Git settings to inject malicious code under a colleague's identity, allowing the real developer to plausibly deny responsibility. The green "Verified" badge makes this attack visible by cryptographically guaranteeing the commit was authored by the actual key owner. Consequently, any unsigned or forged commit lacks this badge, immediately alerting the team to suspicious activity and preventing the attacker from covering their tracks through impersonation.
+
+## Task 2: Pre-commit + gitleaks
+.pre-commit-config.yaml (paste the full content)
+repos:  - repo: https://github.com/gitleaks/gitleaks    rev: v8.18.1    hooks:      - id: gitleaks  - repo: https://github.com/pre-commit/pre-commit-hooks    rev: v4.5.0    hooks:      - id: detect-private-key      - id: check-added-large-files
+pre-commit install output
+pre-commit installed at .git/hooks/pre-commit
+(If using python -m pre_commit install, the output is the same)
+
+The blocked commit
+Output of the git commit that gitleaks blocked (the failing hook output):
+
+Detect hardcoded secrets.................................................Failed
+
+hook id: gitleaks
+exit code: 1
+○
+│╲
+│ ○
+○ ░
+░ gitleaks
+
+Finding: GH_PAT=REDACTED
+Secret: REDACTED
+RuleID: github-pat
+Entropy: 4.143943
+File: submissions/leak-attempt.txt
+Line: 2
+Fingerprint: submissions/leak-attempt.txt:github-pat:2
+
+6:57PM INF 1 commits scanned.
+6:57PM INF scan completed in 91.2ms
+6:57PM WRN leaks found: 1
+
+Tune-out exercise
+### Suppose a teammate insists they need to commit AKIA* strings because they're documentation examples in docs/. Briefly describe two approaches:
+Inline allowlist — [allowlist] block in .gitleaks.toml. When is this OK?
+- * This is acceptable when the string is a well-known, explicitly documented fake value (such as AWS's AKIAIOSFODNN7EXAMPLE) used strictly for educational or testing purposes. By allowlisting the specific string, you ensure the scanner ignores it while still actively catching any real, dynamically generated secrets that match the rule.
+
+- * Path exclusion — paths: [docs/] in .gitleaks.toml. When is this risky? This is risky because it creates a blind spot where any file in that directory completely bypasses scanning. If a developer accidentally pastes a real, valid secret into a documentation file, the pre-commit hook will fail to catch it, potentially leading to a leaked credential in the repository's history.
+
+
 
