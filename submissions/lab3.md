@@ -56,5 +56,22 @@ Inline allowlist — [allowlist] block in .gitleaks.toml. When is this OK?
 
 - * Path exclusion — paths: [docs/] in .gitleaks.toml. When is this risky? This is risky because it creates a blind spot where any file in that directory completely bypasses scanning. If a developer accidentally pastes a real, valid secret into a documentation file, the pre-commit hook will fail to catch it, potentially leading to a leaked credential in the repository's history.
 
+## Bonus: History Rewrite
+### Before
+272737a (HEAD -> master) docs: add usage notes5c3be9e feat: empty log05c18f5 feat: add config9aef3e5 init
+
+Output of git log -p | grep -c 'ghp_': 2
+
+### After
+5016931 (HEAD -> master) docs: add usage notes0634471 feat: empty logb4c3161 feat: add config56d2607 init
+
+Output of git log -p | grep -c 'ghp_': 0Output of git log -p | grep -c 'REDACTED': 2
+
+### The two-step pattern in real life
+git filter-repo --replace-text replacements.txt — rewrite locally
+Key rotation (revoking and reissuing the compromised secret) — what's the MANDATORY second step in a real incident?(Hint: Lecture 3 slide 12 has this — it's the difference between cleanup and remediation.)
+Two real-world gotchas you discovered (2 sentences each)
+git filter-repo was not recognized as a git command because Python's Scripts directory wasn't in the system PATH. I had to download the git-filter-repo script manually and execute it directly via python git-filter-repo to bypass the environment issue.
+PowerShell's Out-File cmdlet added a Byte Order Mark (BOM) to the replacement text file, which caused the filter-repo matching to fail silently on the first run. I had to use [System.IO.File]::WriteAllText to generate a clean UTF-8 file without a BOM for the secret replacement to work correctly.
 
 

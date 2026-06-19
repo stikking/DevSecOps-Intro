@@ -339,3 +339,4 @@ By Week 10 you'll have:
 - If you did the bonus labs: a production-grade Nginx reverse-proxy config + first-hand experience with VM-backed container sandboxing
 
 **This is exactly the portfolio you'd walk through in a DevSecOps interview** — see the 5-minute walkthrough script in `submissions/lab10-walkthrough.md` (produced in Lab 10 bonus).
+API_KEY=ghp_AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJ
