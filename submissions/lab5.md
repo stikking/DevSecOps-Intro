@@ -1,16 +1,16 @@
-\# Lab 5 — Submission
+# Lab 5 — Submission
 
 
 
-\## Task 1: DAST with OWASP ZAP
+## Task 1: DAST with OWASP ZAP
 
 
 
-\### Baseline (unauthenticated) scan
+### Baseline (unauthenticated) scan
 
-\- Duration: \~2 minutes
+- Duration: \~2 minutes
 
-\- Total alerts: 8
+- Total alerts: 8
 
 | Severity | Count |
 
@@ -26,11 +26,11 @@
 
 
 
-\### Authenticated full scan
+### Authenticated full scan
 
-\- Duration: \~5 minutes
+- Duration: \~5 minutes
 
-\- Total alerts: 12
+- Total alerts: 12
 
 | Severity | Count |
 
@@ -46,13 +46,13 @@
 
 
 
-\### The "10–20× more" claim (Lecture 5 slide 11)
+### The "10–20× more" claim (Lecture 5 slide 11)
 
-\- Ratio (auth alerts / baseline alerts): 1.5x (12 / 8)
+- Ratio (auth alerts / baseline alerts): 1.5x (12 / 8)
 
-\- Did your run match the lecture's ratio? No, our run did not match the 10-20x claim. This is likely because modern applications like Juice Shop expose a significant amount of surface area (APIs, static files) to unauthenticated users, and the ZAP Ajax spider successfully crawled hundreds of URLs without needing credentials. Additionally, ZAP's baseline scan is purely passive, while the authenticated scan uses active scanning, which might yield fewer but more critical alerts rather than a massive volume of low-hanging fruit.
+- Did your run match the lecture's ratio? No, our run did not match the 10-20x claim. This is likely because modern applications like Juice Shop expose a significant amount of surface area (APIs, static files) to unauthenticated users, and the ZAP Ajax spider successfully crawled hundreds of URLs without needing credentials. Additionally, ZAP's baseline scan is purely passive, while the authenticated scan uses active scanning, which might yield fewer but more critical alerts rather than a massive volume of low-hanging fruit.
 
-\- Pick \*\*two specific alerts\*\* that only the authenticated scan found. For each:
+- Pick \*\*two specific alerts\*\* that only the authenticated scan found. For each:
 
 &#x20; 1. Alert title + severity: SQL Injection (High)
 
@@ -64,11 +64,10 @@
 
 
 
-\## Task 2: SAST with Semgrep
+## Task 2: SAST with Semgrep
 
 
-
-\### Semgrep severity breakdown
+### Semgrep severity breakdown
 
 | Severity | Count |
 
@@ -84,7 +83,7 @@
 
 
 
-\### Top 10 rules by frequency
+### Top 10 rules by frequency
 
 | Rule ID | Count | OWASP category |
 
@@ -106,7 +105,7 @@
 
 
 
-\### Triage shortcut (Lecture 5 slide 8)
+### Triage shortcut (Lecture 5 slide 8)
 
 Looking at the top 10 — which \*\*one rule\*\* would you fix first if you had time for only one?
 
@@ -114,27 +113,27 @@ Why? I would fix the `sequelize-injection-express` rule first. It has the highes
 
 
 
-\### False-positive sample
+### False-positive sample
 
 Pick \*\*one\*\* finding you'd suppress as a false positive after review.
 
-\- File path: `labs/lab5/semgrep/juice-shop/data/static/codefixes/unionSqlInjectionChallenge\_1.ts`
+- File path: `labs/lab5/semgrep/juice-shop/data/static/codefixes/unionSqlInjectionChallenge\_1.ts`
 
-\- Rule: `javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection`
+- Rule: `javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection`
 
-\- Reason: This file is located in the `data/static/codefixes/` directory, which contains intentionally vulnerable code snippets used as educational examples for Juice Shop challenges, not actual production application code.
-
-
-
-\---
+- Reason: This file is located in the `data/static/codefixes/` directory, which contains intentionally vulnerable code snippets used as educational examples for Juice Shop challenges, not actual production application code.
 
 
 
-\## Bonus: SAST/DAST Correlation
+---
 
 
 
-\### Correlation table
+## Bonus: SAST/DAST Correlation
+
+
+
+### Correlation table
 
 | # | OWASP cat | ZAP alert | ZAP URI | Semgrep rule | Semgrep file:line | Confidence |
 
@@ -144,7 +143,7 @@ Pick \*\*one\*\* finding you'd suppress as a false positive after review.
 
 
 
-\### Strongest correlation deep-dive
+### Strongest correlation deep-dive
 
 1\. Vulnerable code (from Semgrep):
 
@@ -168,7 +167,8 @@ models.Product.findAll({
 
 &#x20; }
 
-})```
+})
+```
 
 
 
@@ -186,7 +186,7 @@ ZAP dynamically attacked the `/rest/products/search` endpoint by fuzzing the `q`
 
 
 
-\### Reflection (2-3 sentences)
+### Reflection (2-3 sentences)
 
 Lecture 5 slide 15 calls this "the highest-confidence finding type." In a real PR review, which of these two would you want first — the SAST finding or the DAST evidence — and why?
 
