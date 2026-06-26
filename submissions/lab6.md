@@ -1,18 +1,18 @@
-\# Lab 6 — Submission
+# Lab 6 — Submission
 
 
 
-\## Task 1: Checkov on Terraform + Pulumi
+## Task 1: Checkov on Terraform + Pulumi
 
 
 
-\### Terraform scan
+### Terraform scan
 
-\- Total checks: 78
+- Total checks: 78
 
-\- Passed: 0
+- Passed: 0
 
-\- Failed: 78
+- Failed: 78
 
 
 
@@ -32,7 +32,7 @@
 
 
 
-\### Top 5 rule IDs (by frequency)
+### Top 5 rule IDs (by frequency)
 
 | Rule ID | Count | What it checks |
 
@@ -50,13 +50,13 @@
 
 
 
-\### Pulumi scan
+### Pulumi scan
 
 Scanned via KICS in Task 2 (Checkov does not natively scan Pulumi Python source without pre-rendered state).
 
 
 
-\### Module-leverage analysis (Lecture 6 slide 17)
+### Module-leverage analysis (Lecture 6 slide 17)
 
 Looking at your top-5 Terraform rules, which ONE fix would eliminate the most findings if applied
 
@@ -66,15 +66,15 @@ If the IAM module enforced least-privilege by default and rejected any policy co
 
 
 
-\---
+---
 
 
 
-\## Task 2: KICS on Ansible + Pulumi
+## Task 2: KICS on Ansible + Pulumi
 
 
 
-\### Severity breakdown (Ansible)
+### Severity breakdown (Ansible)
 
 | Severity | Count |
 
@@ -90,7 +90,7 @@ If the IAM module enforced least-privilege by default and rejected any policy co
 
 
 
-\### Top 5 KICS queries (by frequency)
+### Top 5 KICS queries (by frequency)
 
 | Query | Severity | Files |
 
@@ -106,25 +106,25 @@ If the IAM module enforced least-privilege by default and rejected any policy co
 
 
 
-\### Checkov vs KICS — when to use which? (Lecture 6 slide 10)
+### Checkov vs KICS — when to use which? (Lecture 6 slide 10)
 
-\- One thing Checkov did \*\*better\*\* for the Terraform sample: Checkov has deep, graph-based understanding of Terraform state and cloud provider specifics, giving more precise AWS-focused rules (e.g., detecting IAM privilege escalation paths).
+- One thing Checkov did \*\*better\*\* for the Terraform sample: Checkov has deep, graph-based understanding of Terraform state and cloud provider specifics, giving more precise AWS-focused rules (e.g., detecting IAM privilege escalation paths).
 
-\- One thing KICS did \*\*better\*\* for the Ansible sample: KICS natively supports Ansible playbooks and inventory files out-of-the-box, seamlessly catching hardcoded secrets and misconfigurations, whereas Checkov is primarily focused on cloud IaC like Terraform.
+- One thing KICS did \*\*better\*\* for the Ansible sample: KICS natively supports Ansible playbooks and inventory files out-of-the-box, seamlessly catching hardcoded secrets and misconfigurations, whereas Checkov is primarily focused on cloud IaC like Terraform.
 
-\- (Optional) An example of a finding only ONE of them caught for the same resource type: KICS caught hardcoded secrets in the Ansible inventory file (`ansible\_password`), which Checkov would ignore as it doesn't scan Ansible inventory files by default.
-
-
-
-\---
+- (Optional) An example of a finding only ONE of them caught for the same resource type: KICS caught hardcoded secrets in the Ansible inventory file (`ansible\_password`), which Checkov would ignore as it doesn't scan Ansible inventory files by default.
 
 
 
-\## Bonus: Custom Checkov Policy
+---
 
 
 
-\### Policy file (paste full contents of labs/lab6/policies/my-custom-policy.yaml)
+## Bonus: Custom Checkov Policy
+
+
+
+### Policy file (paste full contents of labs/lab6/policies/my-custom-policy.yaml)
 
 ```yaml
 
