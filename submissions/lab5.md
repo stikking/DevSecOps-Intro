@@ -13,15 +13,10 @@
 - Total alerts: 8
 
 | Severity | Count |
-
 |----------|------:|
-
 | High | 0 |
-
 | Medium | 8 |
-
 | Low | 0 |
-
 | Informational | 0 |
 
 
@@ -33,15 +28,10 @@
 - Total alerts: 12
 
 | Severity | Count |
-
 |----------|------:|
-
 | High | 1 |
-
 | Medium | 6 |
-
 | Low | 3 |
-
 | Informational | 2 |
 
 
@@ -70,15 +60,10 @@
 ### Semgrep severity breakdown
 
 | Severity | Count |
-
 |----------|------:|
-
 | ERROR | 12 |
-
 | WARNING | 10 |
-
 | INFO | 0 |
-
 | \*\*Total\*\* | 22 |
 
 
@@ -86,21 +71,13 @@
 ### Top 10 rules by frequency
 
 | Rule ID | Count | OWASP category |
-
 |---------|------:|----------------|
-
 | javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection | 6 | A03 Injection |
-
 | yaml.github-actions.security.run-shell-injection.run-shell-injection | 5 | A03 Injection |
-
 | javascript.express.security.audit.express-check-directory-listing.express-check-directory-listing | 4 | A05 Security Misconfig |
-
 | javascript.express.security.audit.express-res-sendfile.express-res-sendfile | 4 | A05 Security Misconfig |
-
 | javascript.express.security.audit.express-open-redirect.express-open-redirect | 1 | A01 Broken Access Control |
-
 | javascript.jsonwebtoken.security.jwt-hardcode.hardcoded-jwt-secret | 1 | A02 Cryptographic Failures |
-
 | javascript.lang.security.audit.code-string-concat.code-string-concat | 1 | A03 Injection |
 
 
@@ -136,9 +113,7 @@ Pick \*\*one\*\* finding you'd suppress as a false positive after review.
 ### Correlation table
 
 | # | OWASP cat | ZAP alert | ZAP URI | Semgrep rule | Semgrep file:line | Confidence |
-
 |---|-----------|-----------|---------|--------------|-------------------|------------|
-
 | 1 | A03 Injection | SQL Injection | http://juice-shop:3000/rest/products/search?q=... | sequelize-injection-express | labs/lab5/semgrep/juice-shop/routes/search.ts | High (both agree) |
 
 
