@@ -17,17 +17,11 @@
 
 
 | Severity | Count |
-
 |----------|------:|
-
 | Critical | 0 |
-
 | High | 0 |
-
 | Medium | 0 |
-
 | Low | 0 |
-
 | Unspecified (null) | 78 |
 
 
@@ -35,19 +29,12 @@
 ### Top 5 rule IDs (by frequency)
 
 | Rule ID | Count | What it checks |
-
 |---------|------:|----------------|
-
-| CKV\_AWS\_289 | 4 | Ensure IAM policies does not allow data exfiltration |
-
-| CKV\_AWS\_355 | 4 | Ensure no IAM policies allow `\*` resource |
-
-| CKV\_AWS\_23 | 3 | Ensure every security groups rule has a description |
-
-| CKV\_AWS\_288 | 3 | Ensure IAM policies does not allow write access without constraints |
-
-| CKV\_AWS\_290 | 3 | Ensure IAM policies does not allow privilege escalation |
-
+| CKV_AWS_289 | 4 | Ensure IAM policies does not allow data exfiltration |
+| CKV_AWS_355 | 4 | Ensure no IAM policies allow `*` resource |
+| CKV_AWS_23 | 3 | Ensure every security groups rule has a description |
+| CKV_AWS_288 | 3 | Ensure IAM policies does not allow write access without constraints |
+| CKV_AWS_290 | 3 | Ensure IAM policies does not allow privilege escalation |
 
 
 ### Pulumi scan
@@ -77,15 +64,10 @@ If the IAM module enforced least-privilege by default and rejected any policy co
 ### Severity breakdown (Ansible)
 
 | Severity | Count |
-
 |----------|------:|
-
 | HIGH | 3 |
-
 | MEDIUM | 0 |
-
 | LOW | 1 |
-
 | INFO | 0 |
 
 
@@ -93,15 +75,10 @@ If the IAM module enforced least-privilege by default and rejected any policy co
 ### Top 5 KICS queries (by frequency)
 
 | Query | Severity | Files |
-
 |-------|----------|------:|
-
 | Passwords And Secrets - Generic Password | HIGH | 6 |
-
 | Passwords And Secrets - Password in URL | HIGH | 2 |
-
 | Passwords And Secrets - Generic Secret | HIGH | 1 |
-
 | Unpinned Package Version | LOW | 1 |
 
 
